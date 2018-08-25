@@ -9,7 +9,7 @@ class Details extends React.Component{
     return (
       <div>
         <h2>{this.props.car.name}</h2>
-        <img src={this.props.car.url} width={300}/>
+        <img src={this.props.car.url} width={300} alt=" "/>
         <p>{this.props.car.desc}</p>
         <p>
           Speed: {this.props.car.speed},

@@ -2,28 +2,20 @@ import React, { Component } from 'react';
 import CheckBox from './containers/CheckBox';
 
 export default class App extends Component{
-  state = {
-    isChecked: false
-  }
 
-  handleChange = () =>{
+  handleParentChange = () => {
     this.setState({
-      isChecked: !this.state.isChecked
+      isChecked: true
     })
   }
 
   render() {
-    console.log(this.props)
     const { data } = this.props
     return (
       <React.Fragment>
         {data.map(item => {
           return (
-            <React.Fragment>
-              <input type="checkbox" />
-              <span>{item.name}</span>
-              <CheckBox key={item.name} parentChecked={this.state.isChecked} data={item && item.children}/>
-            </React.Fragment>
+            <CheckBox key={item.name} data={item} handleParentChange={this.handleParentChange}/>
           )
         })}
       </React.Fragment>

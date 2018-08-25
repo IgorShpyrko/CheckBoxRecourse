@@ -10,37 +10,48 @@ const styles = {
 
 export default class CheckBox extends Component{
   state = {
-    isChecked: false,
-    isParentChecked: false,
-    isChildChecked: false
+    isChecked: false
   }
 
   handleChange = () => {
-    if(this.state.isChecked === false){
-      this.setState({
-        isParentChecked: true
-      })
-    }
-    if(this.state.isChecked === true){
-      this.setState({
-        isChildChecked: false
-      })
-    }
     this.setState({
-      isParentChecked: !this.state.isParentChecked
+      isChecked: !this.state.isChecked
     })
+    if(this.state.isChecked === false){
+      if(this.props.parentChange){
+        this.props.parentChange()
+      }
+    }
+  }
+
+  handleParentChange = () => {
+    this.setState({
+      isChecked: true
+    })
+    if(this.props.parentChange){
+      this.props.parentChange()
+    }
+  }
+
+  componentDidUpdate() {
+    if(this.props.parentCheked === false){
+      if(this.state.isChecked === true){
+        this.setState({
+          isChecked: false
+        })
+      }
+    }
   }
 
   render () {
-    console.log(this.props.data)
     return (
       <React.Fragment>
         <div style={styles.divWrapper}>
           <input type="checkbox" checked={ this.state.isChecked } onChange={this.handleChange}/>
           <span>{this.props.data.name}</span>
-        {this.props.data.children && this.props.data.children.map((item, idx) => {
+        {this.props.data.children && this.props.data.children.map(item => {
           return (
-            item ? <CheckBox key={idx} data={item} isChecked={this.state.isChildChecked} /> : null
+            item ? <CheckBox key={item.name} data={item} parentCheked={this.state.isChecked} parentChange={this.handleParentChange}/> : null
           )
         })}
         </div>

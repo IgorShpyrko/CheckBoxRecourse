@@ -1,12 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './reducers';
-// import WebPage from './components/WebPage';
 import App from './components/App';
-
-const store = createStore(rootReducer);
 
 const data = [
   {
@@ -133,8 +127,6 @@ const data = [
 ]
 
 ReactDOM.render(
-  <Provider store = {store}>
-    <App data={data}/>
-  </Provider>,
-  document.getElementById('root')
+  <App data={data}/>,
+document.getElementById('root')
 )
